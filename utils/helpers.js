@@ -1,3 +1,11 @@
+import React from "react";
+import { View } from "react-native";
+import {
+  MaterialIcons,
+  MaterialCommunityIcons,
+  FontAwesome,
+} from "@expo/vector-icons";
+
 // utils/helpers.js
 
 export function isBetween(num, x, y) {
@@ -42,4 +50,71 @@ export function timeToString(time = Date.now()) {
     Date.UTC(date.getFullYear(), date.getMonth(), date.getDate())
   );
   return todayUTC.toISOString().split("T")[0];
+}
+
+export function getMetricMetaInfo(metric) {
+  const info = {
+    run: {
+      displayName: "Run",
+      max: 50,
+      unit: "miles",
+      step: 1,
+      type: "steppers",
+      getIcon() {
+        <View>
+          <MaterialIcons name="directions-run" size={35} color="black" />
+        </View>;
+      },
+    },
+    bike: {
+      displayName: "Bike",
+      max: 100,
+      unit: "miles",
+      step: 1,
+      type: "steppers",
+      getIcon() {
+        <View>
+          <MaterialCommunityIcons name="bike" size={35} color="black" />
+        </View>;
+      },
+    },
+    swim: {
+      displayName: "Swim",
+      max: 9900,
+      unit: "meters",
+      step: 100,
+      type: "steppers",
+      getIcon() {
+        <View>
+          <MaterialCommunityIcons name="swim" size={35} color="black" />
+        </View>;
+      },
+    },
+    sleep: {
+      displayName: "Sleep",
+      max: 24,
+      unit: "hours",
+      step: 1,
+      type: "slider",
+      getIcon() {
+        <View>
+          <FontAwesome name="bed" size={35} color="black" />
+        </View>;
+      },
+    },
+    eat: {
+      displayName: "Eat",
+      max: 10,
+      unit: "rating",
+      step: 1,
+      type: "slider",
+      getIcon() {
+        <View>
+          <MaterialCommunityIcons name="food" size={35} color="black" />
+        </View>;
+      },
+    },
+  };
+
+  return typeof metric === "undefined" ? info : info[metric];
 }
