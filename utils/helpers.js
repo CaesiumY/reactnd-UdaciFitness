@@ -61,9 +61,11 @@ export function getMetricMetaInfo(metric) {
       step: 1,
       type: "steppers",
       getIcon() {
-        <View>
-          <MaterialIcons name="directions-run" size={35} color="black" />
-        </View>;
+        return (
+          <View>
+            <MaterialIcons name="directions-run" size={35} color={"black"} />
+          </View>
+        );
       },
     },
     bike: {
@@ -73,9 +75,11 @@ export function getMetricMetaInfo(metric) {
       step: 1,
       type: "steppers",
       getIcon() {
-        <View>
-          <MaterialCommunityIcons name="bike" size={35} color="black" />
-        </View>;
+        return (
+          <View>
+            <MaterialCommunityIcons name="bike" size={24} color={"black"} />
+          </View>
+        );
       },
     },
     swim: {
@@ -85,9 +89,11 @@ export function getMetricMetaInfo(metric) {
       step: 100,
       type: "steppers",
       getIcon() {
-        <View>
-          <MaterialCommunityIcons name="swim" size={35} color="black" />
-        </View>;
+        return (
+          <View>
+            <MaterialCommunityIcons name="swim" size={35} color={"black"} />
+          </View>
+        );
       },
     },
     sleep: {
@@ -97,9 +103,11 @@ export function getMetricMetaInfo(metric) {
       step: 1,
       type: "slider",
       getIcon() {
-        <View>
-          <FontAwesome name="bed" size={35} color="black" />
-        </View>;
+        return (
+          <View>
+            <FontAwesome name="bed" size={35} color={"black"} />
+          </View>
+        );
       },
     },
     eat: {
@@ -109,9 +117,11 @@ export function getMetricMetaInfo(metric) {
       step: 1,
       type: "slider",
       getIcon() {
-        <View>
-          <MaterialCommunityIcons name="food" size={35} color="black" />
-        </View>;
+        return (
+          <View>
+            <MaterialCommunityIcons name="food" size={35} color={"black"} />
+          </View>
+        );
       },
     },
   };
