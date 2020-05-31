@@ -64,7 +64,7 @@ export default class AddEntry extends Component {
     // Route to Home
 
     // save to "DB"
-    submitEntry(entry, key);
+    submitEntry({ entry, key });
 
     // claer local notification
   };
