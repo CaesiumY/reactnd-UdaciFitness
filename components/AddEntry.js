@@ -6,6 +6,7 @@ import UdaciSlider from "./UdaciSlider";
 import UdaciStepper from "./UdaciStepper";
 import DateHeader from "./DateHeader";
 import TextButton from "./TextButton";
+import { submitEntry, removeEntry } from "../utils/api";
 
 export default class AddEntry extends Component {
   state = {
@@ -63,6 +64,7 @@ export default class AddEntry extends Component {
     // Route to Home
 
     // save to "DB"
+    submitEntry(entry, key);
 
     // claer local notification
   };
@@ -75,6 +77,7 @@ export default class AddEntry extends Component {
     // Route to Home
 
     // Update "DB"
+    removeEntry(key);
   };
 
   render() {
