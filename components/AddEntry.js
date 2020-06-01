@@ -1,5 +1,11 @@
 import React, { Component } from "react";
-import { View, Text, TouchableOpacity } from "react-native";
+import {
+  View,
+  Text,
+  TouchableOpacity,
+  Platform,
+  StyleSheet,
+} from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import {
   getMetricMetaInfo,
@@ -11,8 +17,22 @@ import UdaciStepper from "./UdaciStepper";
 import DateHeader from "./DateHeader";
 import TextButton from "./TextButton";
 import { submitEntry, removeEntry } from "../utils/api";
+import { white, purple } from "../utils/colors";
 import { connect } from "react-redux";
 import { addEntry } from "../actions";
+
+function SubmitButton({ onPress }) {
+  return (
+    <TouchableOpacity
+      onPress={onPress}
+      style={
+        Platform.OS === "ios" ? style.iosSubmitBtn : style.androidSubmitBtn
+      }
+    >
+      <Text style={style.submitBtnText}>SUBMIT</Text>
+    </TouchableOpacity>
+  );
+}
 
 class AddEntry extends Component {
   state = {
@@ -101,23 +121,28 @@ class AddEntry extends Component {
 
     if (this.props.alreadyLogged) {
       return (
-        <View>
-          <Ionicons name="md-happy" size={100} />
+        <View style={style.center}>
+          <Ionicons
+            name={Platform.OS === "ios" ? "ios-happy" : "md-happy"}
+            size={100}
+          />
           <Text>You already logged you information for today.</Text>
-          <TextButton onPress={this.reset}>Reset</TextButton>
+          <TextButton onPress={this.reset} style={{ padding: 10 }}>
+            Reset
+          </TextButton>
         </View>
       );
     }
 
     return (
-      <View>
+      <View style={style.container}>
         <DateHeader date={new Date().toLocaleDateString()}></DateHeader>
         {Object.keys(metaInfo).map((key) => {
           const { getIcon, type, ...rest } = metaInfo[key];
           const value = this.state[key];
 
           return (
-            <View key={key}>
+            <View key={key} style={style.row}>
               {getIcon()}
               {type === "slider" ? (
                 <UdaciSlider
@@ -136,13 +161,55 @@ class AddEntry extends Component {
             </View>
           );
         })}
-        <TouchableOpacity onPress={this.submit}>
-          <Text>SUBMIT</Text>
-        </TouchableOpacity>
+        <SubmitButton onPress={this.submit}></SubmitButton>
       </View>
     );
   }
 }
+
+const style = StyleSheet.create({
+  container: {
+    flex: 1,
+    padding: 20,
+    backgroundColor: white,
+  },
+  row: {
+    flex: 1,
+    flexDirection: "row",
+    alignItems: "center",
+  },
+  iosSubmitBtn: {
+    backgroundColor: purple,
+    padding: 10,
+    borderRadius: 7,
+    height: 45,
+    marginLeft: 40,
+    marginRight: 40,
+  },
+  androidSubmitBtn: {
+    backgroundColor: purple,
+    padding: 10,
+    paddingLeft: 30,
+    paddingRight: 30,
+    height: 45,
+    borderRadius: 2,
+    justifyContent: "center",
+    alignItems: "center",
+    alignSelf: "flex-end",
+  },
+  submitBtnText: {
+    color: white,
+    fontSize: 22,
+    textAlign: "center",
+  },
+  center: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    marginLeft: 30,
+    marginRight: 30,
+  },
+});
 
 function mapStateToProps(state) {
   const key = timeToString();
