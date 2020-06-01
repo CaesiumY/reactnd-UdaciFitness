@@ -8,7 +8,7 @@ import reducers from "./reducer";
 export default function App() {
   return (
     <Provider store={createStore(reducers)}>
-      <View>
+      <View style={{ flex: 1 }}>
         <AddEntry></AddEntry>
       </View>
     </Provider>
