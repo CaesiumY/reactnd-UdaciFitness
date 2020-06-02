@@ -11,6 +11,7 @@ export default function App() {
     <Provider store={createStore(reducers)}>
       <View style={{ flex: 1 }}>
         {/* <AddEntry></AddEntry> */}
+        <View style={{ height: 20 }}></View>
         <History></History>
       </View>
     </Provider>
