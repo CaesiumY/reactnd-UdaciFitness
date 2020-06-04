@@ -58,10 +58,20 @@ export default function App() {
             tabBarOptions={{
               activeTintColor: purple,
               inactiveTintColor: gray,
+              style: {
+                height: 56,
+                shadowColor: "rgba(0, 0, 0, 0.24)",
+                shadowOffset: {
+                  width: 0,
+                  height: 3,
+                },
+                shadowRadius: 6,
+                shadowOpacity: 1,
+              },
             }}
           >
-            <Tab.Screen name="AddEntry" component={AddEntry}></Tab.Screen>
             <Tab.Screen name="History" component={History}></Tab.Screen>
+            <Tab.Screen name="AddEntry" component={AddEntry}></Tab.Screen>
           </Tab.Navigator>
         </View>
       </Provider>
