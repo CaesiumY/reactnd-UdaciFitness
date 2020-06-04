@@ -1,14 +1,27 @@
 import React from "react";
-import { View } from "react-native";
+import { View, StatusBar } from "react-native";
 import { createStore } from "redux";
 import { Provider } from "react-redux";
 import { NavigationContainer } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { FontAwesome } from "@expo/vector-icons";
+import Constants from "expo-constants";
 import reducers from "./reducer";
 import AddEntry from "./components/AddEntry";
 import History from "./components/History";
-import { purple, white, gray } from "./utils/colors";
+import { purple, gray } from "./utils/colors";
+
+function UdaciStatusBar({ backgroundColor, ...props }) {
+  return (
+    <View style={{ backgroundColor, height: Constants.statusBarHeight }}>
+      <StatusBar
+        translucent
+        backgroundColor={backgroundColor}
+        {...props}
+      ></StatusBar>
+    </View>
+  );
+}
 
 const Tab = createBottomTabNavigator();
 
@@ -17,7 +30,10 @@ export default function App() {
     <NavigationContainer>
       <Provider store={createStore(reducers)}>
         <View style={{ flex: 1 }}>
-          <View style={{ height: 20 }}></View>
+          <UdaciStatusBar
+            backgroundColor={purple}
+            barStyle="light-content"
+          ></UdaciStatusBar>
           <Tab.Navigator
             screenOptions={({ route }) => ({
               tabBarIcon: ({ focused, color, size }) => {
