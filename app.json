@@ -17,6 +17,16 @@
     "assetBundlePatterns": ["**/*"],
     "ios": {
       "supportsTablet": true
+    },
+    "web": {
+      "build": {
+        "babel": {
+          "include": [
+            "udacifitness-calendar",
+            "deprecated-react-native-listview"
+          ]
+        }
+      }
     }
   },
   "name": "udacifitness"
