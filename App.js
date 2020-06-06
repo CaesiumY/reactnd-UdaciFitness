@@ -2,13 +2,18 @@ import React from "react";
 import { View, StatusBar } from "react-native";
 import { createStore } from "redux";
 import { Provider } from "react-redux";
+
 import { NavigationContainer } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import { createStackNavigator } from "@react-navigation/stack";
+
 import { FontAwesome } from "@expo/vector-icons";
 import Constants from "expo-constants";
+
 import reducers from "./reducer";
 import AddEntry from "./components/AddEntry";
 import History from "./components/History";
+import EntryDetail from "./components/EntryDetail";
 import { purple, gray } from "./utils/colors";
 
 function UdaciStatusBar({ backgroundColor, ...props }) {
@@ -24,6 +29,17 @@ function UdaciStatusBar({ backgroundColor, ...props }) {
 }
 
 const Tab = createBottomTabNavigator();
+
+const HistoryStack = createStackNavigator();
+
+function HistoryStackScreen() {
+  return (
+    <HistoryStack.Navigator initialRouteName="History">
+      <HistoryStack.Screen name="History" component={History} />
+      <HistoryStack.Screen name="Details" component={EntryDetail} />
+    </HistoryStack.Navigator>
+  );
+}
 
 export default function App() {
   return (
@@ -70,7 +86,10 @@ export default function App() {
               },
             }}
           >
-            <Tab.Screen name="History" component={History}></Tab.Screen>
+            <Tab.Screen
+              name="History"
+              component={HistoryStackScreen}
+            ></Tab.Screen>
             <Tab.Screen name="AddEntry" component={AddEntry}></Tab.Screen>
           </Tab.Navigator>
         </View>
