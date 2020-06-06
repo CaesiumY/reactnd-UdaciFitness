@@ -50,6 +50,7 @@ function HistoryStackScreen() {
           headerStyle: {
             backgroundColor: purple,
           },
+          headerTitleAlign: "center",
         })}
       />
     </HistoryStack.Navigator>
