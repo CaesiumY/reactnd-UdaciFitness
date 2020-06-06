@@ -7,7 +7,7 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { createStackNavigator } from "@react-navigation/stack";
 
-import { FontAwesome } from "@expo/vector-icons";
+import { FontAwesome, Ionicons } from "@expo/vector-icons";
 import Constants from "expo-constants";
 
 import reducers from "./reducer";
@@ -15,6 +15,7 @@ import AddEntry from "./components/AddEntry";
 import History from "./components/History";
 import EntryDetail from "./components/EntryDetail";
 import { purple, gray, white } from "./utils/colors";
+import Live from "./components/Live";
 
 function UdaciStatusBar({ backgroundColor, ...props }) {
   return (
@@ -70,21 +71,32 @@ export default function App() {
             screenOptions={({ route }) => ({
               tabBarIcon: ({ focused, color, size }) => {
                 let iconName;
-
                 switch (route.name) {
                   case "AddEntry":
-                    iconName = "plus";
-                    break;
+                    return (
+                      <Ionicons
+                        name="ios-bookmarks"
+                        size={size}
+                        color={color}
+                      />
+                    );
                   case "History":
-                    iconName = "history";
-                    break;
+                    return (
+                      <FontAwesome name="history" size={size} color={color} />
+                    );
+                  case "Live":
+                    return (
+                      <Ionicons
+                        name="ios-speedometer"
+                        size={size}
+                        color={color}
+                      />
+                    );
                   default:
-                    iconName = "home";
-                    break;
+                    return (
+                      <FontAwesome name="history" size={size} color={color} />
+                    );
                 }
-                return (
-                  <FontAwesome name={iconName} size={size} color={color} />
-                );
               },
             })}
             tabBarOptions={{
@@ -107,6 +119,7 @@ export default function App() {
               component={HistoryStackScreen}
             ></Tab.Screen>
             <Tab.Screen name="AddEntry" component={AddEntry}></Tab.Screen>
+            <Tab.Screen name="Live" component={Live}></Tab.Screen>
           </Tab.Navigator>
         </View>
       </Provider>
