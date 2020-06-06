@@ -3,9 +3,10 @@ import { Text, View } from "react-native";
 
 export class EntryDetail extends Component {
   render() {
+    const { entryId } = this.props.route.params;
     return (
       <View>
-        <Text> EntryDetail </Text>
+        <Text> EntryDetails - {entryId} </Text>
       </View>
     );
   }

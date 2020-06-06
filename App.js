@@ -1,5 +1,5 @@
 import React from "react";
-import { View, StatusBar } from "react-native";
+import { View, StatusBar, Platform } from "react-native";
 import { createStore } from "redux";
 import { Provider } from "react-redux";
 
@@ -14,7 +14,7 @@ import reducers from "./reducer";
 import AddEntry from "./components/AddEntry";
 import History from "./components/History";
 import EntryDetail from "./components/EntryDetail";
-import { purple, gray } from "./utils/colors";
+import { purple, gray, white } from "./utils/colors";
 
 function UdaciStatusBar({ backgroundColor, ...props }) {
   return (
@@ -34,9 +34,23 @@ const HistoryStack = createStackNavigator();
 
 function HistoryStackScreen() {
   return (
-    <HistoryStack.Navigator initialRouteName="History">
-      <HistoryStack.Screen name="History" component={History} />
-      <HistoryStack.Screen name="Details" component={EntryDetail} />
+    <HistoryStack.Navigator initialRouteName="History" headerMode="screen">
+      <HistoryStack.Screen
+        name="History"
+        component={History}
+        options={{ headerShown: false }}
+      />
+      <HistoryStack.Screen
+        name="Details"
+        component={EntryDetail}
+        options={{
+          headerShown: Platform.OS === "ios" ? true : false,
+          headerTintColor: white,
+          headerStyle: {
+            backgroundColor: purple,
+          },
+        }}
+      />
     </HistoryStack.Navigator>
   );
 }
