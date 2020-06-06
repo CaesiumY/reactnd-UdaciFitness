@@ -6,6 +6,7 @@ import {
   Platform,
   StyleSheet,
 } from "react-native";
+import { CommonActions } from "@react-navigation/native";
 import { Ionicons } from "@expo/vector-icons";
 import {
   getMetricMetaInfo,
@@ -93,6 +94,7 @@ class AddEntry extends Component {
     );
 
     // Route to Home
+    this.toHome();
 
     // save to "DB"
     submitEntry({ entry, key });
@@ -111,9 +113,18 @@ class AddEntry extends Component {
     );
 
     // Route to Home
+    this.toHome();
 
     // Update "DB"
     removeEntry(key);
+  };
+
+  toHome = () => {
+    this.props.navigation.dispatch(
+      CommonActions.goBack({
+        key: "AddEntry",
+      })
+    );
   };
 
   render() {
