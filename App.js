@@ -43,13 +43,14 @@ function HistoryStackScreen() {
       <HistoryStack.Screen
         name="Details"
         component={EntryDetail}
-        options={{
-          headerShown: Platform.OS === "ios" ? true : false,
+        options={({ route }) => ({
+          title: route.params.entryId.split("-").join("/"),
+          // headerShown: Platform.OS === "ios" ? true : false,
           headerTintColor: white,
           headerStyle: {
             backgroundColor: purple,
           },
-        }}
+        })}
       />
     </HistoryStack.Navigator>
   );
