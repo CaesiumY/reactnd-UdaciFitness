@@ -10,7 +10,7 @@ import AsyncStorage from "@react-native-community/async-storage";
 import { Notifications } from "expo";
 import * as Permissions from "expo-permissions";
 
-const NOTIFICATION_KEY = "UdaciFitness:notifications";
+const NOTIFICATION_KEY = "UdaciFitness:notification";
 
 // utils/helpers.js
 
@@ -180,6 +180,7 @@ export function setLocalNotification() {
     .then(JSON.parse)
     .then((data) => {
       if (data === null) {
+        // FIXME - no asking popups need to be fix
         Permissions.askAsync(Permissions.NOTIFICATIONS).then(({ status }) => {
           if (status === "granted") {
             Notifications.cancelAllScheduledNotificationsAsync();
@@ -189,12 +190,16 @@ export function setLocalNotification() {
             tomorrow.setHours(20);
             tomorrow.setMinutes(0);
 
-            Notifications.scheduleLocalNotificationAsync(createNotification, {
+            Notifications.scheduleLocalNotificationAsync(createNotification(), {
               time: tomorrow,
               repeat: "day",
-            });
-
-            AsyncStorage.setItem(NOTIFICATION_KEY, JSON.stringify(true));
+            })
+              .then(() => {
+                AsyncStorage.setItem(NOTIFICATION_KEY, JSON.stringify(true));
+              })
+              .catch((e) => {
+                console.warn("error in set:", e);
+              });
           }
         });
       }

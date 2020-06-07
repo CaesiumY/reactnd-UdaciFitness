@@ -1,5 +1,5 @@
-import React from "react";
-import { View, StatusBar, Platform } from "react-native";
+import React, { Component } from "react";
+import { View, StatusBar } from "react-native";
 import { createStore } from "redux";
 import { Provider } from "react-redux";
 
@@ -16,6 +16,7 @@ import History from "./components/History";
 import EntryDetail from "./components/EntryDetail";
 import { purple, gray, white } from "./utils/colors";
 import Live from "./components/Live";
+import { setLocalNotification } from "./utils/helpers";
 
 function UdaciStatusBar({ backgroundColor, ...props }) {
   return (
@@ -58,71 +59,78 @@ function HistoryStackScreen() {
   );
 }
 
-export default function App() {
-  return (
-    <NavigationContainer>
-      <Provider store={createStore(reducers)}>
-        <View style={{ flex: 1 }}>
-          <UdaciStatusBar
-            backgroundColor={purple}
-            barStyle="light-content"
-          ></UdaciStatusBar>
-          <Tab.Navigator
-            screenOptions={({ route }) => ({
-              tabBarIcon: ({ focused, color, size }) => {
-                let iconName;
-                switch (route.name) {
-                  case "AddEntry":
-                    return (
-                      <Ionicons
-                        name="ios-bookmarks"
-                        size={size}
-                        color={color}
-                      />
-                    );
-                  case "History":
-                    return (
-                      <FontAwesome name="history" size={size} color={color} />
-                    );
-                  case "Live":
-                    return (
-                      <Ionicons
-                        name="ios-speedometer"
-                        size={size}
-                        color={color}
-                      />
-                    );
-                  default:
-                    return (
-                      <FontAwesome name="history" size={size} color={color} />
-                    );
-                }
-              },
-            })}
-            tabBarOptions={{
-              activeTintColor: purple,
-              inactiveTintColor: gray,
-              style: {
-                height: 56,
-                shadowColor: "rgba(0, 0, 0, 0.24)",
-                shadowOffset: {
-                  width: 0,
-                  height: 3,
+export class App extends Component {
+  componentDidMount() {
+    setLocalNotification();
+  }
+
+  render() {
+    return (
+      <NavigationContainer>
+        <Provider store={createStore(reducers)}>
+          <View style={{ flex: 1 }}>
+            <UdaciStatusBar
+              backgroundColor={purple}
+              barStyle="light-content"
+            ></UdaciStatusBar>
+            <Tab.Navigator
+              screenOptions={({ route }) => ({
+                tabBarIcon: ({ focused, color, size }) => {
+                  switch (route.name) {
+                    case "AddEntry":
+                      return (
+                        <Ionicons
+                          name="ios-bookmarks"
+                          size={size}
+                          color={color}
+                        />
+                      );
+                    case "History":
+                      return (
+                        <FontAwesome name="history" size={size} color={color} />
+                      );
+                    case "Live":
+                      return (
+                        <Ionicons
+                          name="ios-speedometer"
+                          size={size}
+                          color={color}
+                        />
+                      );
+                    default:
+                      return (
+                        <FontAwesome name="history" size={size} color={color} />
+                      );
+                  }
                 },
-                shadowRadius: 6,
-                shadowOpacity: 1,
-              },
-            }}
-          >
-            <Tab.Screen
-              name="History"
-              component={HistoryStackScreen}
-            ></Tab.Screen>
-            <Tab.Screen name="AddEntry" component={AddEntry}></Tab.Screen>
-            <Tab.Screen name="Live" component={Live}></Tab.Screen>
-          </Tab.Navigator>
-        </View>
-      </Provider>
-    </NavigationContainer>
-  );
+              })}
+              tabBarOptions={{
+                activeTintColor: purple,
+                inactiveTintColor: gray,
+                style: {
+                  height: 56,
+                  shadowColor: "rgba(0, 0, 0, 0.24)",
+                  shadowOffset: {
+                    width: 0,
+                    height: 3,
+                  },
+                  shadowRadius: 6,
+                  shadowOpacity: 1,
+                },
+              }}
+            >
+              <Tab.Screen
+                name="History"
+                component={HistoryStackScreen}
+              ></Tab.Screen>
+              <Tab.Screen name="AddEntry" component={AddEntry}></Tab.Screen>
+              <Tab.Screen name="Live" component={Live}></Tab.Screen>
+            </Tab.Navigator>
+          </View>
+        </Provider>
+      </NavigationContainer>
+    );
+  }
 }
+
+export default App;
