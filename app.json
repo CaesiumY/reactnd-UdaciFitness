@@ -3,7 +3,11 @@
     "name": "udacifitness",
     "description": "Udacity React Nanodegree Project",
     "slug": "udacifitness",
-    "platforms": ["ios", "android", "web"],
+    "platforms": [
+      "ios",
+      "android",
+      "web"
+    ],
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "https://tylermcginnis.com/udacifitness-512.png",
@@ -18,7 +22,9 @@
     "updates": {
       "fallbackToCacheTimeout": 0
     },
-    "assetBundlePatterns": ["**/*"],
+    "assetBundlePatterns": [
+      "**/*"
+    ],
     "ios": {
       "supportsTablet": true,
       "bundleIdentifier": "org.udacifitness.exp"
@@ -35,7 +41,8 @@
           ]
         }
       }
-    }
+    },
+    "githubUrl": "https://github.com/CaesiumY/reactnd-UdaciFitness"
   },
   "name": "udacifitness"
 }
