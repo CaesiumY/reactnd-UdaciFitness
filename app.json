@@ -1,13 +1,17 @@
 {
   "expo": {
     "name": "udacifitness",
+    "description": "Udacity React Nanodegree Project",
     "slug": "udacifitness",
     "platforms": ["ios", "android", "web"],
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/icon.png",
+    "icon": "https://tylermcginnis.com/udacifitness-512.png",
+    "notification": {
+      "icon": "https://tylermcginnis.com/udacifitness-45.png"
+    },
     "splash": {
-      "image": "./assets/splash.png",
+      "image": "https://tylermcginnis.com/udacifitness-512.png",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
@@ -16,7 +20,11 @@
     },
     "assetBundlePatterns": ["**/*"],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "org.udacifitness.exp"
+    },
+    "android": {
+      "package": "org.udacifitness.exp"
     },
     "web": {
       "build": {

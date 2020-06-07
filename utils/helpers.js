@@ -180,7 +180,7 @@ export function setLocalNotification() {
     .then(JSON.parse)
     .then((data) => {
       if (data === null) {
-        // FIXME - no asking popups need to be fix
+        // FIXME - Not asking popups needs to be fixed but it's still working fine.
         Permissions.askAsync(Permissions.NOTIFICATIONS).then(({ status }) => {
           if (status === "granted") {
             Notifications.cancelAllScheduledNotificationsAsync();
