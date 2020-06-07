@@ -1,5 +1,11 @@
 import React, { Component } from "react";
-import { Text, View, ActivityIndicator, StyleSheet } from "react-native";
+import {
+  Text,
+  View,
+  ActivityIndicator,
+  StyleSheet,
+  Animated,
+} from "react-native";
 import * as Location from "expo-location";
 import * as Permissions from "expo-permissions";
 import { Foundation } from "@expo/vector-icons";
@@ -12,6 +18,7 @@ export class Live extends Component {
     coords: null,
     status: null,
     direction: "",
+    bounceValue: new Animated.Value(1),
   };
 
   componentDidMount() {
@@ -56,7 +63,14 @@ export class Live extends Component {
       },
       ({ coords }) => {
         const newDirection = calculateDirection(coords.heading);
-        const { direction } = this.state;
+        const { direction, bounceValue } = this.state;
+
+        if (newDirection !== direction) {
+          Animated.sequence([
+            Animated.timing(bounceValue, { toValue: 1.1, duration: 200 }),
+            Animated.spring(bounceValue, { toValue: 1, friction: 4 }),
+          ]).start();
+        }
 
         this.setState({
           coords,
@@ -68,7 +82,7 @@ export class Live extends Component {
   };
 
   render() {
-    const { coords, status, direction } = this.state;
+    const { coords, status, direction, bounceValue } = this.state;
     if (status === null) {
       return <ActivityIndicator style={{ marginTop: 30 }}></ActivityIndicator>;
     }
@@ -101,7 +115,11 @@ export class Live extends Component {
       <View style={styles.container}>
         <View style={styles.directionContainer}>
           <Text style={styles.header}>You're heading</Text>
-          <Text style={styles.direction}>{direction}</Text>
+          <Animated.Text
+            style={[styles.direction, { transform: [{ scale: bounceValue }] }]}
+          >
+            {direction}
+          </Animated.Text>
         </View>
         <View style={styles.metricContainer}>
           <View style={styles.metric}>
