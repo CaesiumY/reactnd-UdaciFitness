@@ -2,7 +2,7 @@
 
 Udacity React Native Project - UdaciFitness
 
-# Screenshots
+# 📷Screenshots
 
 <details>
 <summary>History</summary>
@@ -19,3 +19,14 @@ Udacity React Native Project - UdaciFitness
 <details>
 <summary>AddEntry(Reset)</summary>
 </details>
+<details>
+<summary>Push Notification</summary>
+</details>
+
+# 🎈Features
+
+- Add Daily Entry
+- View History Entries
+- Get a Live details about Direction, Altitude, Speed
+- View Entry Detail
+- Push Notification
